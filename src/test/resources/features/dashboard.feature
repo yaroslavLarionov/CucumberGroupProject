@@ -7,16 +7,19 @@ Feature: Dashboard question test
 
 
   Scenario: Dashboard question add question Coding
-    Given User click on "Coding" app
-    When User clicks on "Enter new question " button in coding question
-    Then User should be able to add question with letter, number and special characters in coding.
-    And User "Click Enter" button
+    When User click on "Coding" app
+    And User clicks on "Enter new question " button in coding question
+    And User submits a "Love$$Java@Coding##123" question
+    And User clicks on "Enter" button
+    Then User should see "Love$$Java@Coding##123" question displayed
+
 
   Scenario: Dashboard question add question Soft skills
-    Given User click on "Soft skills" app
+    When User click on "Soft skills" app
     When User clicks on "Enter new question " button in coding question
-    Then User should be able to add question with letter, number and special characters in Soft skills.
-    And User "Click Enter" button
+    And User submits a "Love$$@SoftSkills##123" question
+    And User clicks on "Enter" button
+    Then User should see "Love$$@SoftSkills##123" question displayed
 
 
 

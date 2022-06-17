@@ -17,15 +17,30 @@ public class HomeSteps implements CommonPage {
         homePage = new HomePage();
     }
 
+
     @When("creates a {string} message")
     public void creates_a_message(String message) {
         WebDriverManager.sendKeys(homePage.inputField, message);
     }
 
-    @Then("User will see {string} displayed in that section")
-    public void user_will_see_displayed_in_that_section(String message) {
-        Assert.assertEquals(message, WebDriverManager.getText(homePage.lastMessageSent));
+    @When("User presses the add dont button")
+    public void userPressesTheAddDontButton() {
+        WebDriverManager.click(homePage.addDontBtn);
+    }
+
+    @Then("Verify {string} link is displayed")
+    public void verifyLinkIsDisplayed(String dashboard) {
+        Assert.assertTrue((WebDriverManager.isDisplayed(By.xpath(String.format(XPATH_TEMPLATE_TEXT_CONTAINS, dashboard)))));
 
     }
 
+    @Then("User will see {string} displayed in Do section")
+    public void userWillSeeDisplayedInDoSection(String message) {
+        Assert.assertEquals(message, WebDriverManager.getText(homePage.lastMessageDo));
+    }
+
+    @Then("User will see {string} displayed in Don't section")
+    public void userWillSeeDisplayedInDonTSection(String message) {
+        Assert.assertEquals(message, WebDriverManager.getText(homePage.lastMessageDont));
+    }
 }
