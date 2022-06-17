@@ -1,3 +1,4 @@
+@homeScenarios
 Feature: Homepage related scenarios
   Background: user logs in to the web app
     Given  User enters following credentials:
@@ -28,3 +29,11 @@ Feature: Homepage related scenarios
     And creates a "Test question" message
     And User clicks on "Enter" button
     Then User will see "Test question" displayed in Don't section
+
+
+  Scenario: User should see the Sign-Out button after logging in
+    Then User will see the "Sign out" button displayed
+
+
+  Scenario: User should not see the Manage Access button after logging in
+    Then User will not see the "Manage Access" button displayed
