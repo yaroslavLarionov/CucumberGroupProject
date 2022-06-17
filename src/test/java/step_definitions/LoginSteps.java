@@ -1,5 +1,6 @@
 package step_definitions;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -7,6 +8,7 @@ import org.openqa.selenium.By;
 import pages.CommonPage;
 import utils.WebDriverManager;
 
+import java.util.List;
 import java.util.Map;
 
 public class LoginSteps implements CommonPage {
@@ -28,5 +30,12 @@ public class LoginSteps implements CommonPage {
         Assert.assertEquals(title, WebDriverManager.getDriver().getTitle());
 
     }
+
+    @Then("Verify {string} link is displayed")
+    public void verifyLinkIsDisplayed(String dashboard) {
+        Assert.assertTrue((WebDriverManager.isDisplayed(By.xpath(String.format(XPATH_TEMPLATE_DASHBOARDS, dashboard)))));
+
+    }
+
 
 }
