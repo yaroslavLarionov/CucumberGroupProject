@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
                 "rerun:target/rerun.txt"},
         features = "src/test/resources/features",
         glue = {"step_definitions"},
-        stepNotifications = true,
+        stepNotifications = false,
         dryRun = false
 
 )
