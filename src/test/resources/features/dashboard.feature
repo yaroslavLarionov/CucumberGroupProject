@@ -1,3 +1,4 @@
+@dashboardScenarios
 Feature: Dashboard question test
   Background: user logs in to the web app
     Given  User enters following credentials:
