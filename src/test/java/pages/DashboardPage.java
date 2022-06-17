@@ -11,6 +11,6 @@ public class DashboardPage {
 
     }
 
-   @FindBy(className = "col-md-9")
-           public WebElement enterQuestion;
+    @FindBy(xpath = "//*[@class='form-control']")
+    public WebElement txtInputField;
 }

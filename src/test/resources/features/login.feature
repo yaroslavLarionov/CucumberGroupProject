@@ -8,14 +8,4 @@ Feature: Login page related scenario
     Then Verify the title is "Interview App"
 
 
-  @linkTest
-  Scenario: Verify following link is displayed
-    Then Verify "All Topics" link is displayed
-  @scenarioOutlineExample
-  Scenario Outline: Verify 3 dashboards should present
-    Then Verify "<dashboard>" link is displayed
-    Examples:
-      | dashboard   |
-      | All Topics  |
-      | Coding      |
-      | Soft Skills |
+

@@ -16,9 +16,12 @@ public class HomePage {
     public WebElement inputField;
 
     @FindBy(xpath = "(//div[@class='anyClass'])[1]/div[last()]/div[contains(@class, 'col-md-7')]")
-    public WebElement lastMessageSent;
+    public WebElement lastMessageDo;
 
-    @FindBy(xpath = "//button[text()=\"Add don't \"]")
+    @FindBy(xpath = "(//div[@class='anyClass'])[2]/div[last()]/div[contains(@class, 'col-md-7')]")
+    public WebElement lastMessageDont;
+
+    @FindBy(xpath = "(//*[@class='btn btn-success badge-pill newbtn mb-3'])[2]")
     public WebElement addDontBtn;
 
 }
