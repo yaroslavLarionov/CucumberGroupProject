@@ -11,6 +11,13 @@ public class HomePage {
         PageFactory.initElements(WebDriverManager.getDriver(), this);
     }
 
+    @FindBy(xpath = "//textarea[@placeholder='Your Input...']")
+    public WebElement inputField;
 
+    @FindBy(xpath = "(//div[@class='anyClass'])[1]/div[last()]/div[contains(@class, 'col-md-7')]")
+    public WebElement lastMessageSent;
+
+    @FindBy(xpath = "//button[text()=\"Add don't \"]")
+    public WebElement addDontBtn;
 
 }
