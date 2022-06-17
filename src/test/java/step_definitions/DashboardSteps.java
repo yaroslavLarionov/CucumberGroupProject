@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import pages.CommonPage;
 import pages.DashboardPage;
@@ -39,5 +40,32 @@ public class DashboardSteps implements CommonPage {
     @Then("User should see {string} question displayed")
     public void userShouldSeeQuestionDisplayed(String question) {
         Assert.assertEquals(question, WebDriverManager.getText(By.xpath(String.format(XPATH_TEMPLATE_TEXT_CONTAINS, question))));
+    }
+
+    @And("User clicks on edit message icon")
+    public void userClicksOnEditMessageIcon() {
+        WebDriverManager.click(dashboardPage.editMsgBtn);
+    }
+
+    @And("User enters edited {string} question")
+    public void userEntersEditedQuestion(String message) {
+        new Actions(WebDriverManager.getDriver()).moveToElement(dashboardPage.newQuestionField).doubleClick().click().sendKeys(message).perform();
+    }
+
+    @And("User confirms the changes made")
+    public void userConfirmsTheChangesMade() {
+        WebDriverManager.click(dashboardPage.confirmNewQuestionBtn);
+    }
+
+    @And("User clicks the delete button")
+    public void userClicksTheDeleteButton() {
+        WebDriverManager.click(dashboardPage.deleteMsgBtn);
+    }
+
+
+    @Then("User will not see the {string} question displayed")
+    public void userWillNotSeeTheQuestionDisplayed(String question) {
+        Assert.assertThrows(NoSuchElementException.class, ()-> {WebDriverManager.isDisplayed(By.xpath(String.format(XPATH_TEMPLATE_TEXT_CONTAINS, question)));});
+
     }
 }
