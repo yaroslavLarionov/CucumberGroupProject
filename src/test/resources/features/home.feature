@@ -17,6 +17,7 @@ Feature: Homepage related scenarios
       | Soft skills |
 
 
+    @smoke
   Scenario: User should have an option to add statements in Do's section
     When User clicks on "Add do " button
     And creates a "Test message" message
