@@ -6,7 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverManager {
@@ -15,27 +19,51 @@ public class WebDriverManager {
 
     }
     private static WebDriver driver;
+    private static String sauceUser = ConfigReader.readProperty("sauce_userName");
+    private static String sauceKey = ConfigReader.readProperty("sauce_key");
+    private static String URL = "https://" + sauceUser + ":" + sauceKey + "@ondemand.us-west-1.saucelabs.com:443/wd/hub";
 
     private static void initializeDriver(String browser){
         driver = null;
-        switch (browser.toLowerCase()){
-            case "chrome":
-                io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
-                break;
-            case "ie":
-                io.github.bonigarcia.wdm.WebDriverManager.iedriver().setup();
-                driver = new InternetExplorerDriver();
-                break;
-            default:
-                System.out.println("Wrong browser name was entered");
+
+        if (ConfigReader.readProperty("runInSaucelabs").equals("true")){
+            driver = getRemoteDriver();
+        }else{
+            switch (browser.toLowerCase()){
+                case "chrome":
+                    io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+                    break;
+                case "firefox":
+                    io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                    break;
+                case "ie":
+                    io.github.bonigarcia.wdm.WebDriverManager.iedriver().setup();
+                    driver = new InternetExplorerDriver();
+                    break;
+                default:
+                    System.out.println("Wrong browser name was entered");
+            }
         }
+
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
+    }
+
+    public static WebDriver getRemoteDriver(){
+        WebDriver driver = null;
+        try{
+            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+            capabilities.setCapability("browser", ConfigReader.readProperty("browser"));
+            capabilities.setCapability("version", ConfigReader.readProperty("browser_version"));
+            capabilities.setCapability("platform", ConfigReader.readProperty("os"));
+            driver = new RemoteWebDriver(new URL(URL), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return driver;
     }
 
     public static WebDriver getDriver(){
