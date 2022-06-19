@@ -60,7 +60,7 @@
                 <configuration>
                     <forkCount>1</forkCount>
                     <includes>
-                        <include>**/*Runner.class</include>
+                        <include>**/*CukesRunner.class</include>
                     </includes>
                 </configuration>
             </plugin>
